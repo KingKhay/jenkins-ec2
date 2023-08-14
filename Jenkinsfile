@@ -1,7 +1,9 @@
 pipeline {
-    agent any
-    tools {
-        maven 'Maven_3'
+    agent {
+        docker {
+            image 'maven:3.8.5-openjdk-17'
+            args '-v $HOME/.m2:/root/.m2'
+        }
     }
     stages {
         stage('Build Maven') {
