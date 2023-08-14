@@ -1,1 +1,5 @@
-
+spring:
+  application:
+    name: jenkins-ec2
+server:
+  port: 8005
