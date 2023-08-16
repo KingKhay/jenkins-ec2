@@ -14,7 +14,7 @@
 	<name>jenkins-ec2</name>
 	<description>Testing Continous Deployment with Jenkins to EC2 Instance</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
