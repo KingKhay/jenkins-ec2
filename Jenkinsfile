@@ -18,8 +18,8 @@ pipeline {
         stage('Push Docker Image'){
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhub-pwd')]) {
-                        sh "docker login -u khaydev1 -p ${dockerhub-pwd}"
+                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                        sh "docker login -u khaydev1 -p ${dockerhubpwd}"
                     }
                     sh "docker push khaydev1/jenkins-ec2:1.0.${env.BUILD_ID}"
                 }
