@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Build Docker Image'){
             steps {
-               sh 'docker build -t khaydev1/jenkins-ec2:1.0.${env.BUILD_ID}'
+               sh 'docker build -t khaydev1/jenkins-ec2:1.0.${env.BUILD_ID} .'
             }
         }
         stage('Push Docker Image'){
