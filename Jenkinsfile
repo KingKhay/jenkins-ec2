@@ -27,9 +27,9 @@ pipeline {
         }
         stage('Deploy on EC2'){
             steps {
-                    sshagent(['jenkins-ssh']) {
-                        sh 'docker ps'
-                    }
+                sshagent(['jenkins-ssh']) {
+                    sh './deploy.sh'
+                }
             }
         }
     }
