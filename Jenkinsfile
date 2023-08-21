@@ -3,6 +3,9 @@ pipeline {
     tools {
         maven 'Maven_3'
     }
+    environment {
+        dockerHubCredentials = 'dockerhub-login'
+    }
     stages {
         stage('Build Maven') {
             steps {
@@ -12,24 +15,10 @@ pipeline {
         }
         stage('Build Docker Image'){
             steps {
-               sh "docker build -t khaydev1/jenkins-ec2:1.0.${env.BUILD_ID} ."
-            }
-        }
-        stage('Push Docker Image'){
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                        sh 'docker login -u khaydev1 -p ${dockerhubpwd}'
-                    }
-                    sh "docker push khaydev1/jenkins-ec2:1.0.${env.BUILD_ID}"
-                }
-            }
-        }
-        stage('Deploy on EC2'){
-            steps {
-                sshagent(['jenkins-ssh']) {
-                    sh './deploy.sh'
-                }
+               withDockerRegistry(credentialsId: dockerHubCredentials, url: 'https://registry.hub.docker.com') {
+                   sh "docker build -t khaydev1/jenkins-ec2:1.0.${env.BUILD_ID} ."
+                   sh "docker push khaydev1/jenkins-ec2:1.0.${env.BUILD_ID}"
+               }
             }
         }
     }
